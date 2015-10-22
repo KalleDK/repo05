@@ -7,7 +7,7 @@ using ATM.Models;
 
 namespace ATM.TransponderReceiver
 {
-    interface ITransponderMonitor : IObservable<>
+    interface ITransponderMonitor : IObservable<bool>
     {
         List<Plane> GetPlanes();
     }
