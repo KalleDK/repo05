@@ -24,7 +24,7 @@ namespace ATM.Events
         public EventTypes EventType;
         public Category EventCatagory;
         public DateTime Timesstamp;
-        public List<string> Tags;
+        public List<string> Tags = new List<string>();
 
     }
 }

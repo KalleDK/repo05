@@ -21,11 +21,11 @@ namespace ATM.Events
             // Find alle the planes that are new to out list
             foreach (var plane in activePlanes.Where(plane => !_tagsList.Contains(plane.Tag)))
             {
-                var e = new AtmEvent
+                var e = new AtmEvent()
                 {
                     EventCatagory = AtmEvent.Category.Information,
                     EventType = AtmEvent.EventTypes.Enter,
-                    Tags = {plane.Tag},
+                    Tags = { plane.Tag},
                     Timesstamp = DateTime.Now,
                 };
                 RaiseEvent(e);
