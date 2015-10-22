@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ATM.Events
 {
-    class AtmEvent
+    public class AtmEvent
     {
         public enum EventTypes
         {
