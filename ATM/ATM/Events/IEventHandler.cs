@@ -10,5 +10,6 @@ namespace ATM.Events
     interface IEventHandler
     {
         void CheckForEvent(List<Plane> activePlanes);
+        IEnumerable<AtmEvent> ActiveAtmEvents { get; } 
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="Atm.cs" />
     <Compile Include="Events\AtmEvent.cs" />
     <Compile Include="Events\EnterEventHandler.cs" />
+    <Compile Include="Events\EventHandlerBase.cs" />
     <Compile Include="Events\ExitEventHandler.cs" />
     <Compile Include="Events\IEventController.cs" />
     <Compile Include="Events\IEventHandler.cs" />

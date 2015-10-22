@@ -6,18 +6,16 @@ using ATM.Models;
 
 namespace ATM.Events
 {
-    public class ExitEventHandler : IEventHandler
+    public class ExitEventHandler : EventHandlerBase
     {
-        private readonly IEventController _eventController;
         private List<string> _tagsList;
         private static readonly int _timeout = 10;
 
-        public ExitEventHandler(IEventController eventController)
+        public ExitEventHandler(IEventController eventController) : base(eventController)
         {
-            _eventController = eventController;
             _tagsList = new List<string>();
         }
-        public void CheckForEvent(List<Plane> activePlanes)
+        public override void CheckForEvent(List<Plane> activePlanes)
         {
             // Remove all planes from the saved list
             foreach (var plane in activePlanes)
@@ -35,9 +33,8 @@ namespace ATM.Events
                     Tags = {tag},
                     Timesstamp = DateTime.Now,
                 };
-                _eventController.RaiseEvent(e, _timeout);
+                RaiseEvent(e);
             }
-
             // Update list for next time
             _tagsList = activePlanes.Select(plane => plane.Tag).ToList();
         }

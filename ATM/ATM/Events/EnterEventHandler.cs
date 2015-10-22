@@ -5,18 +5,18 @@ using ATM.Models;
 
 namespace ATM.Events
 {
-    public class EnterEventHandler : IEventHandler
+    public class EnterEventHandler : EventHandlerBase
     {
-        private readonly IEventController _eventController;
         private List<string> _tagsList;
         private static readonly int _timeout = 10;
+        private static System.Timers.Timer removeTimer;
 
-        public EnterEventHandler(IEventController eventController)
+        public EnterEventHandler(IEventController eventController) : base(eventController)
         {
-            _eventController = eventController;
             _tagsList = new List<string>();
+
         }
-        public void CheckForEvent(List<Plane> activePlanes)
+        public override void CheckForEvent(List<Plane> activePlanes)
         {
             // Find alle the planes that are new to out list
             foreach (var plane in activePlanes.Where(plane => !_tagsList.Contains(plane.Tag)))
@@ -28,7 +28,7 @@ namespace ATM.Events
                     Tags = {plane.Tag},
                     Timesstamp = DateTime.Now,
                 };
-                _eventController.RaiseEvent(e,_timeout);
+                RaiseEvent(e);
             }
 
             // Update list for next time
