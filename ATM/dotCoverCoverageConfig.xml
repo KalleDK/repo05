@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AnalyseParams>
   <TargetExecutable>C:\Program Files (x86)\NUnit 2.6.4\bin\nunit-console-x86.exe</TargetExecutable>
-  <TargetArguments>ATM.Test.Unit.nunit</TargetArguments>
+  <TargetArguments>ATM.tests.unit.nunit</TargetArguments>
   <TargetWorkingDir>ATM.Test.Unit</TargetWorkingDir>
   <TempDir><!-- Directory for the auxiliary files. Set to system temp by default. --></TempDir>
   <Output>coverage_report.html</Output>
