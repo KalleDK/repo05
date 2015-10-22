@@ -7,7 +7,7 @@ using ATM.Models;
 
 namespace ATM.Events
 {
-    interface IEventController
+    public interface IEventController
     {
         void CheckForEvents(List<Plane> activePlanes);
         void RaiseEvent(AtmEvent raisedEvent, int timeout = -1);
