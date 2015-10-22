@@ -10,5 +10,6 @@ namespace ATM.Logging
     {
         void Info(string line);
         void Warning(string line);
+        void Debug(string line);
     }
 }

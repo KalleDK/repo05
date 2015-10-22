@@ -8,7 +8,7 @@ using log4net.Config;
 
 namespace ATM.Logging
 {
-    class Logger : ILogger
+    public class Logger : ILogger
     {
         private readonly log4net.ILog _log4Net;
         public static void Start()
@@ -26,6 +26,10 @@ namespace ATM.Logging
         public void Warning(string line)
         {
             _log4Net.Warn(line);
+        }
+        public void Debug(string line)
+        {
+            _log4Net.Debug(line);
         }
     }
 }

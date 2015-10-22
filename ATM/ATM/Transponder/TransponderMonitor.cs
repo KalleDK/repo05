@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using ATM.Models;
 using TransponderReceiver;
+using ATM.Logging;
 
 namespace ATM.Transponder
 {
     public class TransponderMonitor : ITransponderMonitor
     {
-        private ITransponderReceiver _eventReceiver;
+        private readonly ITransponderReceiver _eventReceiver;
+        private readonly ILogger _logger;
 
         public TransponderMonitor()
         {
+            _logger = new Logger(typeof (TransponderMonitor));
             _eventReceiver = TransponderReceiver.TransponderReceiverFactory.CreateTransponderDataReceiver();
             _eventReceiver.TransponderDataReady += TransponderListener;
+
         }
 
         public IDisposable Subscribe(IObserver<bool> observer)
@@ -27,9 +31,10 @@ namespace ATM.Transponder
 
         private void TransponderListener(List<string> transponderData)
         {
+            _logger.Debug("=== New transponder data ===");
             foreach (var entry in transponderData)
             {
-                Console.WriteLine(entry);
+                _logger.Debug(entry);
             }
         }
     }
