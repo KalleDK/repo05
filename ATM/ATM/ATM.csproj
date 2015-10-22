@@ -49,6 +49,7 @@
     <Compile Include="Events\AtmEvent.cs" />
     <Compile Include="Events\IEventController.cs" />
     <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="ILogger.cs" />
     <Compile Include="Models\Plane.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransponderReceiver\ITransponderMonitor.cs" />
