@@ -13,7 +13,7 @@ namespace ATM.Logging
         private readonly log4net.ILog _log4Net;
         public static void Start()
         {
-            BasicConfigurator.Configure();
+            XmlConfigurator.Configure();
         }
         public Logger(System.Type classtype)
         {
