@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ATM.Models
 {
-    class Plane
+    public class Plane
     {
         string Tag { get; set; }
 
@@ -17,7 +17,7 @@ namespace ATM.Models
         double? Compass { get; set; }
     }
 
-    struct Coordinate
+    public struct Coordinate
     {
         int x { get; set; }
         int y { get; set; }
