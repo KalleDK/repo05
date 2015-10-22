@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ATM.TransponderReceiver
 {
-    interface TransponderParser
+    interface ITransponderParser
     {
+
     }
 }
