@@ -19,8 +19,8 @@ namespace ATM.Models
 
     public struct Coordinate
     {
-        int x { get; set; }
-        int y { get; set; }
-        int z { get; set; }
+        int X { get; set; }
+        int Y { get; set; }
+        int Z { get; set; }
     }
 }
