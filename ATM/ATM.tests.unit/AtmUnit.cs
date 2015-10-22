@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ATM.tests.unit
 {
-    public class Class1
+    public class AtmUnit
     {
     }
 }

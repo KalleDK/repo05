@@ -6,21 +6,27 @@ using System.Threading.Tasks;
 
 namespace ATM.Models
 {
-    class Plane
+    public class Plane
     {
-        string Tag { get; set; }
+        public string Tag { get; set; }
 
-        Coordinate[] Position { get; set; }
+        public Position[] Positions { get; set; }
 
-        double? Speed { get; set; }
+        public double? Speed { get; set; }
 
-        double? Compass { get; set; }
+        public double? Compass { get; set; }
     }
 
-    struct Coordinate
+    public struct Position
     {
-        int x { get; set; }
-        int y { get; set; }
-        int z { get; set; }
+        public DateTime Timestamp { get; set; }
+        public Coordinate Coordinate { get; set; }
+    }
+
+    public struct Coordinate
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Z { get; set; }
     }
 }

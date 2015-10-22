@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATM.TransponderReceiver
+namespace ATM.Transponder
 {
-    interface TransponderParser
+    interface ITransponderParser
     {
+
     }
 }

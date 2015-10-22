@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace ATM.Events
 {
-    class Event
+    public class AtmEvent
     {
+        public enum EventTypes
+        {
+            Enter,
+            Left,
+            Seperation,
+        }
+
+        public enum Category
+        {
+            Warning,
+            Information,
+        }
+
+        public EventTypes EventType;
+        public Category EventCatagory;
+        public DateTime Timesstamp;
+        public List<string> Tags;
+
     }
 }

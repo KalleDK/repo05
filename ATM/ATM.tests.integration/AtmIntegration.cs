@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ATM.tests.integration
 {
-    public class Class1
+    public class AtmIntegration
     {
     }
 }

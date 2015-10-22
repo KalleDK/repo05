@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ATM.Models;
 
-namespace ATM.TransponderReceiver
+namespace ATM.Transponder
 {
-    interface ITransponderMonitor
+    interface ITransponderMonitor : IObservable<bool>
     {
+        List<Plane> GetPlanes();
     }
 }
