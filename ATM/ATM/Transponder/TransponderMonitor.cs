@@ -11,7 +11,7 @@ namespace ATM.Transponder
         private readonly ITransponderReceiver _eventReceiver;
         private readonly ILogger _logger;
         private readonly ITransponderParser _transParser;
-        private List<IObserver<List<Plane>>> _observers; 
+        private readonly List<IObserver<List<Plane>>> _observers; 
 
         public TransponderMonitor()
         {

@@ -51,6 +51,7 @@
     <Compile Include="AtmEventDetectorTests.cs" />
     <Compile Include="AtmUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransponderUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
