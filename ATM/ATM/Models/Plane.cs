@@ -10,11 +10,12 @@ namespace ATM.Models
     {
         public string Tag { get; set; }
 
-        public Position[] Positions { get; set; }
+        public List<Position> Positions { get; set; } = new List<Position>();
 
         public double? Speed { get; set; }
 
         public double? Compass { get; set; }
+
     }
 
     public struct Position

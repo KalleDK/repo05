@@ -63,6 +63,7 @@
     <Compile Include="Transponder\ITransponderMonitor.cs" />
     <Compile Include="Transponder\ITransponderParser.cs" />
     <Compile Include="Transponder\TransponderMonitor.cs" />
+    <Compile Include="Transponder\TransponderParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

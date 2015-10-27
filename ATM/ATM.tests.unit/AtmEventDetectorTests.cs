@@ -30,10 +30,7 @@ namespace ATM.tests.unit
 
             uut.CheckForEvent(testList);
 
-
-
             fakeEventController.Received().RaiseAtmEvent(Arg.Any<AtmEvent>());
-
         }
     }
 }
