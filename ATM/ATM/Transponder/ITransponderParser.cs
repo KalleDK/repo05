@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ATM.Models;
 
-namespace ATM.TransponderReceiver
+namespace ATM.Transponder
 {
     interface ITransponderParser
     {
-
+        List<Plane> ParseRawData(List<string> rawData);
     }
 }

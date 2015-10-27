@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using ATM.Models;
 
-namespace ATM.TransponderReceiver
+namespace ATM.Transponder
 {
-    interface ITransponderMonitor : IObservable<bool>
+    interface ITransponderMonitor : IObservable<List<Plane>>
     {
-        List<Plane> GetPlanes();
+ 
     }
 }
