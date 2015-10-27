@@ -10,6 +10,15 @@ namespace ATM.Models
     {
         public string Tag { get; set; }
 
+<<<<<<< HEAD
+
+        //Skal første eller anden position i arrayet være de nye koordinater?? 
+        public Coordinate[] Position { get; set; }
+
+        public double? Speed { get; set; }
+
+        public double? Compass { get; set; }
+=======
         public List<Position> Positions { get; set; } = new List<Position>();
 
         public double? Speed { get; set; }
@@ -22,6 +31,7 @@ namespace ATM.Models
     {
         public DateTime Timestamp { get; set; }
         public Coordinate Coordinate { get; set; }
+>>>>>>> 5d2273b5f0d54bd60b1dfd81ad971380e0749342
     }
 
     public struct Coordinate

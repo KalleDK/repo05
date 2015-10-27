@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AirSpace\AirSpaceController.cs" />
+    <Compile Include="AirSpace\AirSpaceMonitor.cs" />
     <Compile Include="AirSpace\IAirSpaceMonitor.cs" />
     <Compile Include="Atm.cs" />
     <Compile Include="Events\AtmEvent.cs" />
