@@ -2,7 +2,7 @@
 
 namespace ATM.Models
 {
-    public class AirspaceModel
+    public class AirspaceModel : IAirspaceModel
     {
         public AirspaceModel(Coordinate minCoordinate, Coordinate maxCoordinate)
         {

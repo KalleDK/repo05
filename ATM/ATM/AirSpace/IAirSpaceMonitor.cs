@@ -10,7 +10,7 @@ namespace ATM.AirSpace
 {
     interface IAirSpaceMonitor
     {
-        AirspaceModel AirSpace { get; set; }
+        IAirspaceModel AirSpace { get; set; }
 
         List<Plane> CheckAirSpace(List<PlaneObservation> newObservations);
     }

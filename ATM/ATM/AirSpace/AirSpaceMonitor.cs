@@ -7,9 +7,9 @@ namespace ATM.AirSpace
 {
     public class AirSpaceMonitor : IAirSpaceMonitor
     {
-        private AirspaceModel _airspace;
+        private IAirspaceModel _airspace;
 
-        public AirspaceModel AirSpace
+        public IAirspaceModel AirSpace
         {
             get
             {
@@ -30,7 +30,7 @@ namespace ATM.AirSpace
             
         }
 
-        public AirSpaceMonitor(AirspaceModel airspace)
+        public AirSpaceMonitor(IAirspaceModel airspace)
         {
             _planesInAirSpace = new Dictionary<string, Plane>();
             AirSpace = airspace;
