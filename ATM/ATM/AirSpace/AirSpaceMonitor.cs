@@ -1,30 +1,65 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ATM.Models;
 
 namespace ATM.AirSpace
 {
     public class AirSpaceMonitor : IAirSpaceMonitor
     {
-        public Coordinate Min { get; set; }
-        public Coordinate Max { get; set; }
-        public List<Plane> CheckAirSpace(List<Plane> toCalculate)
+        public Coordinate Min { get; private set; }
+        public Coordinate Max { get; private set; }
+
+        //public List<Plane> _PlanesInAirSpace;
+        private readonly Dictionary<string, Plane> _planesInAirSpace;
+
+        public AirSpaceMonitor() : this(new Coordinate { X = 10000, Y = 10000, Z = 500 }, new Coordinate { X = 90000, Y = 90000, Z = 20000 })
         {
+            
+        }
 
-            List<Plane> PlanesPressentInAirspace = new List<Plane>();
+        public AirSpaceMonitor(Coordinate min, Coordinate max)
+        {
+            _planesInAirSpace = new Dictionary<string, Plane>();
 
-            foreach (Plane plane in toCalculate)
+            Min = min;
+            Max = max;
+        } 
+        public List<Plane> CheckAirSpace(List<PlaneObservation> newObservations)
+        {
+            
+            foreach (var planeOb in newObservations)
             {
-                if ((plane.Position[0].X > Min.X && plane.Position[0].X < Max.X) &&
-                    (plane.Position[0].Y > Min.Y && plane.Position[0].Y < Max.Y) &&
-                    (plane.Position[0].Z > Min.Z && plane.Position[0].Z < Max.Z))
+                if (CoordinateInAirSpace(planeOb.ObservedPosition.Coordinate))
                 {
-                    PlanesPressentInAirspace.Add(plane);
+                    if (_planesInAirSpace.ContainsKey(planeOb.Tag))
+                    {
+                        _planesInAirSpace[planeOb.Tag].Positions.Insert(0,planeOb.ObservedPosition);
+                    }
+                    else
+                    {
+                        _planesInAirSpace.Add(planeOb.Tag, new Plane {Tag = planeOb.Tag, Positions = {planeOb.ObservedPosition}});
+                    }
                 }
-
-                
+                else
+                {
+                    if (_planesInAirSpace.ContainsKey(planeOb.Tag))
+                    {
+                        _planesInAirSpace.Remove(planeOb.Tag);
+                    }
+                }
             }
 
-            return PlanesPressentInAirspace;
+            return _planesInAirSpace.Values.ToList();
+        }
+
+
+        //Returns true if planeobservation is in Airspace
+        private bool CoordinateInAirSpace(Coordinate coordinate)
+        {
+            return (coordinate.X >= Min.X && coordinate.X <= Max.X) &&
+                (coordinate.Y >= Min.Y && coordinate.Y <= Max.Y) &&
+                (coordinate.Z >= Min.Z && coordinate.Z <= Max.Z);
+
         }
     }
 }

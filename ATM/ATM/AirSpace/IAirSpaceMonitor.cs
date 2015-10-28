@@ -10,9 +10,9 @@ namespace ATM.AirSpace
 {
     interface IAirSpaceMonitor
     {
-        Coordinate Min { get; set; }
-        Coordinate Max { get; set; }
+        Coordinate Min { get; }
+        Coordinate Max { get; }
 
-        List<Plane> CheckAirSpace(List<Plane> toCalculate);
+        List<Plane> CheckAirSpace(List<PlaneObservation> newObservations);
     }
 }

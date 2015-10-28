@@ -10,7 +10,7 @@ namespace ATM.Models
     {
         public string Tag { get; set; }
 
-        //Skal første eller anden position i arrayet være de nye koordinater?? 
+        
         public List<Position> Positions { get; set; } = new List<Position>();
 
         public double? Speed { get; set; }
