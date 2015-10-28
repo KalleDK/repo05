@@ -7,7 +7,7 @@ using ATM.Models;
 using NUnit.Framework;
 using ATM.Transponder;
 
-namespace ATM.tests.unit
+namespace ATM.tests.unit.TransponderUnitTest
 {
     [TestFixture]
     class TransponderParserUnitTests
