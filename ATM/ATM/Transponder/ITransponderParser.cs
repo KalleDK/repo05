@@ -7,8 +7,8 @@ using ATM.Models;
 
 namespace ATM.Transponder
 {
-    interface ITransponderParser
+    public interface ITransponderParser
     {
-        List<Plane> ParseRawData(List<string> rawData);
+        List<PlaneObservation> ParseRawData(List<string> rawData);
     }
 }

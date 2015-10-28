@@ -7,7 +7,7 @@ using ATM.Models;
 
 namespace ATM.Transponder
 {
-    interface ITransponderMonitor : IObservable<List<Plane>>
+    public interface ITransponderMonitor : IObservable<List<PlaneObservation>>
     {
  
     }

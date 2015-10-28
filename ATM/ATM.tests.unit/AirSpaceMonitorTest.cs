@@ -3,7 +3,7 @@ using ATM.AirSpace;
 using ATM.Models;
 using NUnit.Framework;
 
-
+/*
 namespace ATM.tests.unit
 {
     [TestFixture]
@@ -31,7 +31,7 @@ namespace ATM.tests.unit
 
             _max = new Coordinate() {X = 10000, Y = 10000, Z=100};
 
-            Testplane_In = new Plane() {Compass = null,Position = new Coordinate[1], Speed = null, Tag = "TestFly Inde"};
+            Testplane_In = new Plane() {Compass = null, Position = new Coordinate[1], Speed = null, Tag = "TestFly Inde"};
 
             Testplane_Out = new Plane() { Compass = null, Position = new Coordinate[1], Speed = null, Tag = "TestFly Ude" };
 
@@ -65,4 +65,4 @@ namespace ATM.tests.unit
     }
 
 
-}
+}*/
