@@ -59,6 +59,8 @@
     <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Models\AirspaceModel.cs" />
+    <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\Plane.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transponder\ITransponderMonitor.cs" />
