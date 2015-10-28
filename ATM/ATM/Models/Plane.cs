@@ -9,7 +9,6 @@ namespace ATM.Models
     public class Plane
     {
         public string Tag { get; set; }
-
         
         public List<Position> Positions { get; set; } = new List<Position>();
 
@@ -17,19 +16,6 @@ namespace ATM.Models
 
         public double? Compass { get; set; }
 
-    }
-
-    public struct PlaneObservation
-    {
-        public string Tag { get; set; }
-        public Position ObservedPosition { get; set; }
-        
-    }
-
-    public struct Position
-    {
-        public DateTime Timestamp { get; set; }
-        public Coordinate Coordinate { get; set; }
     }
 
 }

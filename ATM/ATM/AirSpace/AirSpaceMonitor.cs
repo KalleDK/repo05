@@ -23,7 +23,6 @@ namespace ATM.AirSpace
             }
         }
 
-        //public List<Plane> _PlanesInAirSpace;
         private readonly Dictionary<string, Plane> _planesInAirSpace;
 
         public AirSpaceMonitor() : this(new AirspaceModel(new Coordinate { X = 10000, Y = 10000, Z = 500 }, new Coordinate { X = 90000, Y = 90000, Z = 20000 }))
