@@ -5,17 +5,21 @@ using ATM.Models;
 
 namespace ATM.Events
 {
+    public enum EventChange
+    {
+        Added,
+        Removed
+    }
     public abstract class EventHandlerBase : IEventHandler
     {
-        private readonly IEventController _controller;
-
         private readonly object _atmeventLock = new object();
         private readonly List<AtmEventBase> _activAtmEvents;
+        private readonly List<IObserver<EventChange>> _observers;
 
-        protected EventHandlerBase(IEventController controller)
+        protected EventHandlerBase()
         {
-            _controller = controller;
             _activAtmEvents = new List<AtmEventBase>();
+            _observers = new List<IObserver<EventChange>>();
         }
 
         protected void RaiseEvent(AtmEventBase e)
@@ -24,6 +28,7 @@ namespace ATM.Events
             {
                 _activAtmEvents.Add(e);
             }
+            SendMessage(EventChange.Added);
         }
 
         protected void RemoveEvent(AtmEventBase e)
@@ -32,6 +37,7 @@ namespace ATM.Events
             {
                 _activAtmEvents.Remove(e);
             }
+            SendMessage(EventChange.Removed);
         }
 
         public abstract void CheckForEvent(List<Plane> activePlanes);
@@ -60,6 +66,38 @@ namespace ATM.Events
         public void OnCompleted()
         {
             throw new NotImplementedException();
+        }
+
+        public IDisposable Subscribe(IObserver<EventChange> observer)
+        {
+            if (!_observers.Contains(observer))
+                _observers.Add(observer);
+            return new Unsubscriber(_observers, observer);
+        }
+
+        private void SendMessage(EventChange message)
+        {
+            foreach (var observer in _observers)
+            {
+                observer.OnNext(message);
+            }
+        }
+
+        private class Unsubscriber : IDisposable
+        {
+            private readonly List<IObserver<EventChange>> _observers;
+            private readonly IObserver<EventChange> _observer;
+
+            public Unsubscriber(List<IObserver<EventChange>> observers, IObserver<EventChange> observer)
+            {
+                _observers = observers;
+                _observer = observer;
+            }
+            public void Dispose()
+            {
+                if (_observer != null && _observers.Contains(_observer))
+                    _observers.Remove(_observer);
+            }
         }
     }
 }

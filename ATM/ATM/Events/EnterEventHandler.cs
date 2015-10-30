@@ -18,7 +18,7 @@ namespace ATM.Events
         private List<string> _tagsList;
         private const int Timeout = 10 * 1000;
 
-        public EnterEventHandler(IEventController eventController) : base(eventController)
+        public EnterEventHandler()
         {
             _tagsList = new List<string>();
 

@@ -56,8 +56,8 @@ namespace ATM.Transponder
 
         private class Unsubscriber : IDisposable
         {
-            private List<IObserver<List<Plane>>> _observers;
-            private IObserver<List<Plane>> _observer;
+            private readonly List<IObserver<List<Plane>>> _observers;
+            private readonly IObserver<List<Plane>> _observer;
 
             public Unsubscriber(List<IObserver<List<Plane>>> observers, IObserver<List<Plane>> observer)
             {

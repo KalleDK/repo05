@@ -18,7 +18,7 @@ namespace ATM.Events
         private List<string> _tagsList;
         private const int Timeout = 10*1000;
 
-        public ExitEventHandler(IEventController eventController) : base(eventController)
+        public ExitEventHandler()
         {
             _tagsList = new List<string>();
         }

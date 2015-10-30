@@ -24,9 +24,5 @@ namespace ATM.Events
             await Task.Delay(e.Timeout);
             RemoveEvent(e);
         }
-
-        protected TimedEventHandlerBase(IEventController controller) : base(controller)
-        {
-        }
     }
 }

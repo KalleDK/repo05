@@ -15,9 +15,9 @@ namespace ATM.Events
 
     class SeparationEventHandler : EventHandlerBase
     {
-        private List<ConflictingPlanes> _tagsList;
+        private readonly List<ConflictingPlanes> _tagsList;
 
-        public SeparationEventHandler(IEventController eventController) : base(eventController)
+        public SeparationEventHandler()
         {
             _tagsList = new List<ConflictingPlanes>();
 
