@@ -174,6 +174,27 @@ namespace ATM.tests.unit
 
         }
 
+        [Test]
+        public void AirSpaceMonitor_CheckAirSpace_PlaneWasInListButThenOutOfBound()
+        {
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
+
+            testListObservations.Add(Plane_In);
+
+            List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            Plane_In.ObservedPosition.Coordinate.X = 9999;
+
+            testListObservations.Clear();
+
+            testListObservations.Add(Plane_In);
+
+            testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            CollectionAssert.IsEmpty(testListPlanes);
+
+
+        }
         
 
 
