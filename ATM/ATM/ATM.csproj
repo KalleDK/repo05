@@ -56,6 +56,7 @@
     <Compile Include="Events\ExitEventHandler.cs" />
     <Compile Include="Events\IEventController.cs" />
     <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="Events\SeparationEventHandler.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Models\Plane.cs" />
