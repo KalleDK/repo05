@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ATM.AirSpace;
 using ATM.Models;
 using TransponderReceiver;
 using ATM.Logging;
@@ -8,17 +9,19 @@ namespace ATM.Transponder
 {
     public class TransponderMonitor : ITransponderMonitor
     {
+        private readonly IAirSpaceMonitor _airSpaceMonitor;
         private readonly ITransponderReceiver _eventReceiver;
         private readonly ILogger _logger;
         private readonly ITransponderParser _transParser;
-        private List<IObserver<List<Plane>>> _observers; 
+        private readonly List<IObserver<List<Plane>>> _observers; 
 
-        public TransponderMonitor()
+        public TransponderMonitor(ITransponderReceiver eventReceiver, ITransponderParser transParser, IAirSpaceMonitor airSpaceMonitor)
         {
             _logger = new Logger(typeof (TransponderMonitor));
-            _eventReceiver = TransponderReceiver.TransponderReceiverFactory.CreateTransponderDataReceiver();
+            _eventReceiver = eventReceiver; //TransponderReceiverFactory.CreateTransponderDataReceiver();
             _eventReceiver.TransponderDataReady += TransponderListener;
-            _transParser = new TransponderParser();
+            _transParser = transParser; // new TransponderParser();
+            _airSpaceMonitor = airSpaceMonitor;
             _observers = new List<IObserver<List<Plane>>>();
 
         }
@@ -41,11 +44,14 @@ namespace ATM.Transponder
         private void TransponderListener(List<string> transponderData)
         {
             _logger.Debug("=== New transponder data ===");
-            foreach (var entry in transponderData)
+
+            if (transponderData.Count > 0)
             {
-                _logger.Debug(entry);
+                var observations = _transParser.ParseRawData(transponderData);
+                var planeTracks = _airSpaceMonitor.CheckAirSpace(observations);
+                SendMessage(planeTracks);
             }
-            SendMessage(_transParser.ParseRawData(transponderData));
+
         }
 
         private class Unsubscriber : IDisposable

@@ -8,11 +8,10 @@ using ATM.Models;
 
 namespace ATM.AirSpace
 {
-    interface IAirSpaceMonitor
+    public interface IAirSpaceMonitor
     {
-        Coordinate Min { get; set; }
-        Coordinate Max { get; set; }
+        IAirspaceModel AirSpace { get; set; }
 
-        List<Plane> CheckAirSpace(List<Plane> toCalculate);
+        List<Plane> CheckAirSpace(List<PlaneObservation> newObservations);
     }
 }

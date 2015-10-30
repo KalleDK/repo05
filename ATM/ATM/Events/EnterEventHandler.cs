@@ -25,7 +25,7 @@ namespace ATM.Events
                 {
                     EventCatagory = AtmEvent.Category.Information,
                     EventType = AtmEvent.EventTypes.Enter,
-                    Tags = { plane.Tag},
+                    Tags = { plane.Tag },
                     Timesstamp = DateTime.Now,
                 };
                 RaiseEvent(e);

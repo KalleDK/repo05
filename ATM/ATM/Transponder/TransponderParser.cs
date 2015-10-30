@@ -9,20 +9,28 @@ using ATM.Models;
 
 namespace ATM.Transponder
 {
-    class TransponderParser : ITransponderParser
+    public class TransponderParser : ITransponderParser
     {
         private readonly ILogger _logger = new Logger(typeof(TransponderParser));
-        public List<Plane> ParseRawData(List<string> rawData)
+        public List<PlaneObservation> ParseRawData(List<string> rawData)
         {
-            List<Plane> parsedPlanes = new List<Plane>();
+            var parsedPlanes = new List<PlaneObservation>();
             char[] seperators = {';'};
             foreach (var entry in rawData)
             {
                 var parts = entry.Split(seperators, StringSplitOptions.RemoveEmptyEntries);
-                var newPlane = new Plane() { Tag = parts[0] };
-                var position = new Position() { Coordinate = new Coordinate() { X = int.Parse(parts[1]), Y = int.Parse(parts[2]), Z = int.Parse(parts[3])} };
-                position.Timestamp = ParseDateTime(parts[4]);
-                newPlane.Positions.Add(position);
+                if(parts.Length != 5)
+                    throw new NotSupportedException();
+                var newPlane = new PlaneObservation
+                {
+                    Tag = parts[0],
+                    ObservedPosition = new Position
+                    {
+                    Coordinate = new Coordinate { X = int.Parse(parts[1]), Y = int.Parse(parts[2]), Z = int.Parse(parts[3]) },
+                    Timestamp = ParseDateTime(parts[4])
+                    }
+                };
+                parsedPlanes.Add(newPlane);
             }
             return parsedPlanes;
         }
@@ -34,7 +42,10 @@ namespace ATM.Transponder
 
             DateTime parsedDate;
 
-            DateTime.TryParseExact(rawDate, pattern, null, DateTimeStyles.None, out parsedDate);
+            if (!DateTime.TryParseExact(rawDate, pattern, null, DateTimeStyles.None, out parsedDate))
+            {
+                throw new NotSupportedException();
+            }
 
             _logger.Debug("Date: " + parsedDate.ToLongDateString());
             _logger.Debug("Time: " + parsedDate.ToLongTimeString());
