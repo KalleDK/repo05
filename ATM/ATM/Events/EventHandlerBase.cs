@@ -15,7 +15,7 @@ namespace ATM.Events
         protected EventHandlerBase(IEventController controller)
         {
             _controller = controller;
-            _activAtmEvents = new List<AtmEvent>();
+            _activAtmEvents = new List<AtmEventBase>();
         }
 
         protected void RaiseEvent(AtmEventBase e)

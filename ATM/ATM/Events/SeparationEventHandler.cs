@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using ATM.Models;
 
 namespace ATM.Events
 {
+    public class AtmEventSeperation : AtmEventBase
+    {
+        public override string ToString()
+        {
+            return "Seperation";
+        }
+    }
+
     class SeparationEventHandler : EventHandlerBase
     {
         private List<ConflictingPlanes> _tagsList;
@@ -30,12 +32,11 @@ namespace ATM.Events
             {
                 if (!_tagsList.Contains(cPlanes))
                 {
-                    var e = new AtmEvent()
+                    var e = new AtmEventSeperation()
                     {
-                        EventCatagory = AtmEvent.Category.Warning,
-                        EventType = AtmEvent.EventTypes.Seperation,
+                        Level = Levels.Warning,
                         Tags = {cPlanes.Tag1, cPlanes.Tag2},
-                        Timesstamp = DateTime.Now
+                        TimeStamp = DateTime.Now
                     };
                     RaiseEvent(e);
                     _tagsList.Add(cPlanes);

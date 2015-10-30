@@ -4,6 +4,11 @@ using ATM.Models;
 
 namespace ATM.Events
 {
+    public abstract class AtmEventTimed : AtmEventBase
+    {
+        public int Timeout { get; set; }
+    }
+
     public abstract class TimedEventHandlerBase : EventHandlerBase
     {
         

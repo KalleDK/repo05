@@ -18,17 +18,5 @@ namespace ATM.Events
         public abstract override string ToString();
         
     }
-
-    public abstract class AtmEventTimed : AtmEventBase
-    {
-        public int Timeout { get; set; }
-    }
-
-    public class AtmEventSeperation : AtmEventBase
-    {
-        public override string ToString()
-        {
-            return "Seperation";
-        }
-    }
+    
 }
