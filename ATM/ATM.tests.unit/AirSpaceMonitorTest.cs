@@ -8,24 +8,23 @@ using NUnit.Framework;
 namespace ATM.tests.unit
 {
     [TestFixture]
-
-    
-
-   
-
     public class AirSpaceMonitorTest
     {
         private AirSpaceMonitor uut;
 
+<<<<<<< HEAD
         private PlaneObservation Plane_Out;
 
         private PlaneObservation Plane_In;
         
 
 
+=======
+>>>>>>> 9b3cb7e404521f301e4c5d40614dc87a8772ad45
         [SetUp]
         public void Setup()
         {
+<<<<<<< HEAD
             
 
             uut = new AirSpaceMonitor();
@@ -65,6 +64,19 @@ namespace ATM.tests.unit
 
             CollectionAssert.IsNotEmpty(testListPlanes);
         }
+=======
+            var minCoordinate = new Coordinate {X = 1000, Y = 1000, Z = 10};
+
+            var maxCoordinate = new Coordinate {X = 10000, Y = 10000, Z=100};
+
+            var airspace = new AirspaceModel(minCoordinate,maxCoordinate);
+
+            uut = new AirSpaceMonitor(airspace);
+        }
+
+        [Test]
+        public void AirSpaceMonitor_Constructor_Correct
+>>>>>>> 9b3cb7e404521f301e4c5d40614dc87a8772ad45
 
         [Test]
         public void AirSpaceMonitor_CheckAirspace_PlaneIsInList()
