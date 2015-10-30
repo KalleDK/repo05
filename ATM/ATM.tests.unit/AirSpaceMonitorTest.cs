@@ -171,6 +171,29 @@ namespace ATM.tests.unit
             CollectionAssert.IsEmpty(testListPlanes);
         }
 
+        [Test]
+        public void AirSpaceMonitor_CheckAirspace_PlaneXCoordinateInListUpdated()
+        {
+            
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
+
+            testListObservations.Add(Plane_In);
+
+            List < Plane > testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            Plane_In.ObservedPosition.Coordinate.X = 15000;
+
+            testListObservations.Clear();
+
+            testListObservations.Add(Plane_In);
+
+            testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            Assert.That(testListPlanes[0].Positions[0].Coordinate.X.Equals(15000));
+
+
+        }
+
         
 
 
