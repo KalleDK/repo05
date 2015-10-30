@@ -11,29 +11,18 @@ namespace ATM.tests.unit
     public class AirSpaceMonitorTest
     {
         private AirSpaceMonitor uut;
-
-
         private PlaneObservation Plane_Out;
-
         private PlaneObservation Plane_In;
         
-
-
-
         [SetUp]
         public void Setup()
         {
-            
-
             uut = new AirSpaceMonitor();
 
             Plane_Out = new PlaneObservation() {Tag = "Plane_Out", ObservedPosition = new Position() {Coordinate = new Coordinate(9999,10000,500)} }; 
 
             Plane_In = new PlaneObservation() {Tag = "Plane_In", ObservedPosition = new Position() {Coordinate = new Coordinate(10000,10000,500)} };
-
         }
-
-        
 
         [Test]
         public void AirSpaceMonitor_CheckAirspace_ListIsNotEmpty()
@@ -47,11 +36,7 @@ namespace ATM.tests.unit
             List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
 
             CollectionAssert.IsNotEmpty(testListPlanes);
-      
-            
         }
-
-    
 
         [Test]
         public void AirSpaceMonitor_CheckAirspace_PlaneIsInList()
@@ -68,8 +53,6 @@ namespace ATM.tests.unit
 
             Plane testPlane = testListPlanes[0];
 
-            
-
             CollectionAssert.Contains(testListPlanes, testPlane);
         }
 
@@ -81,8 +64,6 @@ namespace ATM.tests.unit
             List<PlaneObservation> testListObservations = new List<PlaneObservation>();
 
             testListObservations.Add(Plane_Out);
-
-            
 
             List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
 
@@ -135,8 +116,6 @@ namespace ATM.tests.unit
             List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
 
             CollectionAssert.IsEmpty(testListPlanes);
-
-
         }
 
         [Test]
@@ -170,11 +149,5 @@ namespace ATM.tests.unit
 
             CollectionAssert.IsEmpty(testListPlanes);
         }
-
-        
-
-
     }
-
-
 }

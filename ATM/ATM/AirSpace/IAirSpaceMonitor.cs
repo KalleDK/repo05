@@ -8,7 +8,7 @@ using ATM.Models;
 
 namespace ATM.AirSpace
 {
-    interface IAirSpaceMonitor
+    public interface IAirSpaceMonitor
     {
         IAirspaceModel AirSpace { get; set; }
 
