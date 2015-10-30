@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ATM.AirSpace;
 using ATM.Models;
+using NSubstitute;
 using NUnit.Framework;
 
 
@@ -10,41 +11,193 @@ namespace ATM.tests.unit
     public class AirSpaceMonitorTest
     {
         private AirSpaceMonitor uut;
-
+        private PlaneObservation Plane_Out;
+        private PlaneObservation Plane_In;
+        
         [SetUp]
-        public void SetUp()
+        public void Setup()
         {
-            var minCoordinate = new Coordinate {X = 1000, Y = 1000, Z = 10};
+            uut = new AirSpaceMonitor();
 
-            var maxCoordinate = new Coordinate {X = 10000, Y = 10000, Z=100};
+            Plane_Out = new PlaneObservation() {Tag = "Plane_Out", ObservedPosition = new Position() {Coordinate = new Coordinate(9999,10000,500)} }; 
 
-            var airspace = new AirspaceModel(minCoordinate,maxCoordinate);
-
-            uut = new AirSpaceMonitor(airspace);
+            Plane_In = new PlaneObservation() {Tag = "Plane_In", ObservedPosition = new Position() {Coordinate = new Coordinate(10000,10000,500)} };
         }
 
         [Test]
-        public void AirSpaceMonitor_Constructor_Correct
+        public void AirSpaceMonitor_CheckAirspace_ListIsNotEmpty()
+        {
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
+
+            testListObservations.Add(Plane_In);
+
+            Plane testPlane = new Plane() { Tag = Plane_In.Tag };
+
+            List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            CollectionAssert.IsNotEmpty(testListPlanes);
+        }
 
         [Test]
-        public void AirSpaceMonitor_CheckAirSpace_ListDoesNotContainPlaneout()
+        public void AirSpaceMonitor_CheckAirspace_PlaneIsInList()
         {
-            List<Plane> testList = new List<Plane>();
+            //Plane_out x coordinate is set in setup to be out of bound  
 
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
+
+            testListObservations.Add(Plane_Out);
+
+            testListObservations.Add(Plane_In);
+
+            List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            Plane testPlane = testListPlanes[0];
+
+            CollectionAssert.Contains(testListPlanes, testPlane);
+        }
+
+        [Test]
+        public void AirSpaceMonitor_CheckAirspace_XCoordinateIsOutOfMinBound()
+        {
+            //Plane_out x coordinate is set in setup to be out of bound  
+
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
+
+            testListObservations.Add(Plane_Out);
+
+            List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            CollectionAssert.IsEmpty(testListPlanes);
+        }
+
+        [Test]
+        public void AirSpaceMonitor_CheckAirSpace_XCoordinateIsOutOfMaxBound()
+        {
+            Plane_Out.ObservedPosition.Coordinate.X = 90001;
+
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
+
+            testListObservations.Add(Plane_Out);
+
+            List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            CollectionAssert.IsEmpty(testListPlanes);
+        }
+
+        [Test]
+        public void AirSpaceMonitor_CheckAirspace_YCoordinateIsOutOfMinBound()
+        {
+
+            Plane_Out.ObservedPosition.Coordinate.X = 10000;
+
+            Plane_Out.ObservedPosition.Coordinate.Y = 9999;
+
+
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
+
+            testListObservations.Add(Plane_Out);
+
+
+            List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            CollectionAssert.IsEmpty(testListPlanes);
+        }
+
+        [Test]
+        public void AirSpaceMonitor_CheckAirSpace_YCoordinateIsOutOfMaxBound()
+        {
+            Plane_Out.ObservedPosition.Coordinate.Y = 90001;
+
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
+
+            testListObservations.Add(Plane_Out);
+
+
+            List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            CollectionAssert.IsEmpty(testListPlanes);
+        }
+
+        [Test]
+        public void AirSpace_Monitor_CheckAirSpace_ZCoordinateOutOfMinBound()
+        {
+            Plane_Out.ObservedPosition.Coordinate.Y = 10000;
+            Plane_Out.ObservedPosition.Coordinate.Z = 499;
+
+
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
+
+            testListObservations.Add(Plane_Out);
+
+
+            List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            CollectionAssert.IsEmpty(testListPlanes);
+        }
+
+        [Test]
+        public void AirSpaceMonitor_CheckAirspace_ZCoordinateOutOfMaxBound()
+        {
+            Plane_Out.ObservedPosition.Coordinate.Z = 20001;
+
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
+
+            testListObservations.Add(Plane_Out);
+
+
+            List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            CollectionAssert.IsEmpty(testListPlanes);
+        }
+
+
+        [Test]
+        public void AirSpaceMonitor_CheckAirspace_PlaneXCoordinateInListUpdated()
+        {
             
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
 
-            testList.Add(Testplane_In);
+            testListObservations.Add(Plane_In);
 
-            testList.Add(Testplane_Out);
+            List < Plane > testListPlanes = uut.CheckAirSpace(testListObservations);
 
-            testList = uut.CheckAirSpace(testList);
+            Plane_In.ObservedPosition.Coordinate.X = 15000;
+
+            testListObservations.Clear();
+
+            testListObservations.Add(Plane_In);
+
+            testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            Assert.That(testListPlanes[0].Positions[0].Coordinate.X.Equals(15000));
 
 
-            CollectionAssert.DoesNotContain(testList,Testplane_Out);
+        }
+
+        [Test]
+        public void AirSpaceMonitor_CheckAirSpace_PlaneWasInListButThenOutOfBound()
+        {
+            List<PlaneObservation> testListObservations = new List<PlaneObservation>();
+
+            testListObservations.Add(Plane_In);
+
+            List<Plane> testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            Plane_In.ObservedPosition.Coordinate.X = 9999;
+
+            testListObservations.Clear();
+
+            testListObservations.Add(Plane_In);
+
+            testListPlanes = uut.CheckAirSpace(testListObservations);
+
+            CollectionAssert.IsEmpty(testListPlanes);
+
+
         }
         
-         
+
+
+
     }
-
-
 }

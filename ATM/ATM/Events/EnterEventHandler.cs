@@ -40,9 +40,6 @@ namespace ATM.Events
 
             // Update list for next time
             _tagsList = activePlanes.Select(plane => plane.Tag).ToList();
-    
         }
-
-        
     }
 }

@@ -38,20 +38,27 @@ namespace ATM.AirSpace
 
         public List<Plane> CheckAirSpace(List<PlaneObservation> newObservations)
         {
-            
+            // Checking all Plane observations if they are in airspace
             foreach (var planeOb in newObservations)
             {
+                
+                //Check if in airspace
                 if (AirSpace.Contains(planeOb.ObservedPosition.Coordinate))
                 {
+
+                    //If Observation was there before, update plane with new coordinate
                     if (_planesInAirSpace.ContainsKey(planeOb.Tag))
                     {
                         _planesInAirSpace[planeOb.Tag].Positions.Insert(0,planeOb.ObservedPosition);
                     }
+                    //If completely new observation, Add to list of planes in airspace
                     else
                     {
                         _planesInAirSpace.Add(planeOb.Tag, new Plane {Tag = planeOb.Tag, Positions = {planeOb.ObservedPosition}});
                     }
                 }
+
+                //If observation is not in airspace anymore but were before, remove it from list
                 else
                 {
                     if (_planesInAirSpace.ContainsKey(planeOb.Tag))
