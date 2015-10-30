@@ -1,20 +1,28 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using ATM.Models;
 
 namespace ATM.Events
 {
-    public class ExitEventHandler : EventHandlerBase
+    public class AtmEventExit : AtmEventTimed
+    {
+        public override string ToString()
+        {
+            return "Enter";
+        }
+    }
+
+    public class ExitEventHandler : TimedEventHandlerBase
     {
         private List<string> _tagsList;
-        private static readonly int _timeout = 10;
+        private const int Timeout = 10*1000;
 
         public ExitEventHandler(IEventController eventController) : base(eventController)
         {
             _tagsList = new List<string>();
         }
+
         public override void CheckForEvent(List<Plane> activePlanes)
         {
             // Remove all planes from the saved list
@@ -26,17 +34,19 @@ namespace ATM.Events
             // Planes left must have left the airspace
             foreach (var tag in _tagsList)
             {
-                var e = new AtmEvent
+                var e = new AtmEventExit()
                 {
-                    EventCatagory = AtmEvent.Category.Information,
-                    EventType = AtmEvent.EventTypes.Enter,
+                    Level = Levels.Information,
                     Tags = {tag},
-                    Timesstamp = DateTime.Now,
+                    TimeStamp = DateTime.Now,
+                    Timeout = Timeout,
                 };
                 RaiseEvent(e);
             }
+            
             // Update list for next time
             _tagsList = activePlanes.Select(plane => plane.Tag).ToList();
         }
+
     }
 }

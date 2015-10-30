@@ -5,11 +5,18 @@ using ATM.Models;
 
 namespace ATM.Events
 {
-    public class EnterEventHandler : EventHandlerBase
+    public class AtmEventEnter : AtmEventTimed
+    {
+        public override string ToString()
+        {
+            return "Enter";
+        }
+    }
+
+    public class EnterEventHandler : TimedEventHandlerBase
     {
         private List<string> _tagsList;
-        private static readonly int _timeout = 10;
-        private static System.Timers.Timer removeTimer;
+        private const int Timeout = 10 * 1000;
 
         public EnterEventHandler(IEventController eventController) : base(eventController)
         {
@@ -21,18 +28,21 @@ namespace ATM.Events
             // Find alle the planes that are new to out list
             foreach (var plane in activePlanes.Where(plane => !_tagsList.Contains(plane.Tag)))
             {
-                var e = new AtmEvent()
+                var e = new AtmEventEnter
                 {
-                    EventCatagory = AtmEvent.Category.Information,
-                    EventType = AtmEvent.EventTypes.Enter,
-                    Tags = { plane.Tag},
-                    Timesstamp = DateTime.Now,
+                    Level = Levels.Information,
+                    Tags = { plane.Tag },
+                    TimeStamp = DateTime.Now,
+                    Timeout = Timeout,
                 };
                 RaiseEvent(e);
             }
 
             // Update list for next time
             _tagsList = activePlanes.Select(plane => plane.Tag).ToList();
+    
         }
+
+        
     }
 }

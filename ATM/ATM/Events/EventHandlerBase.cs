@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ATM.Models;
 
 namespace ATM.Events
 {
     public abstract class EventHandlerBase : IEventHandler
     {
-        private IEventController _controller;
-        private readonly List<AtmEvent> _activAtmEvents;
+        private readonly IEventController _controller;
+
+        private readonly object _atmeventLock = new object();
+        private readonly List<AtmEventBase> _activAtmEvents;
 
         protected EventHandlerBase(IEventController controller)
         {
@@ -15,19 +18,48 @@ namespace ATM.Events
             _activAtmEvents = new List<AtmEvent>();
         }
 
-        protected void RaiseEvent(AtmEvent e)
+        protected void RaiseEvent(AtmEventBase e)
         {
-            _activAtmEvents.Add(e);
-            _controller.RaiseAtmEvent(e);
+            lock (_atmeventLock)
+            {
+                _activAtmEvents.Add(e);
+            }
         }
 
-        protected void RemoveEvent(AtmEvent e)
+        protected void RemoveEvent(AtmEventBase e)
         {
-            _activAtmEvents.Remove(e);
+            lock (_atmeventLock)
+            {
+                _activAtmEvents.Remove(e);
+            }
         }
 
         public abstract void CheckForEvent(List<Plane> activePlanes);
 
-        public IEnumerable<AtmEvent> ActiveAtmEvents => _activAtmEvents;
+        public IEnumerable<AtmEventBase> ActiveAtmEvents
+        {
+            get
+            {
+                lock (_atmeventLock)
+                {
+                    return _activAtmEvents.ToList();
+                }
+            }
+        }
+
+        public void OnNext(List<Plane> value)
+        {
+            CheckForEvent(value);
+        }
+
+        public void OnError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnCompleted()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

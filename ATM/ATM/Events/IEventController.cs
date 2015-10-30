@@ -7,10 +7,8 @@ using ATM.Models;
 
 namespace ATM.Events
 {
-    public interface IEventController
+    public interface IEventController : IObservable<IEventController>
     {
-        void CheckForEvents(List<Plane> activePlanes);
-        IEnumerable<AtmEvent> ActiveAtmEvents { get; }
-        void RaiseAtmEvent(AtmEvent e);
+        IEnumerable<AtmEventBase> ActiveAtmEvents { get; }
     }
 }
