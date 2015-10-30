@@ -149,7 +149,7 @@ namespace ATM.tests.unit
 
             CollectionAssert.IsEmpty(testListPlanes);
         }
-<<<<<<< HEAD
+
 
         [Test]
         public void AirSpaceMonitor_CheckAirspace_PlaneXCoordinateInListUpdated()
@@ -177,7 +177,6 @@ namespace ATM.tests.unit
         
 
 
-=======
->>>>>>> 2119c6964de46f60e079db93f1fc21489d7df94f
+
     }
 }
