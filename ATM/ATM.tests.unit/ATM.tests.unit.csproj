@@ -53,9 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AirSpaceMonitorTest.cs" />
-    <Compile Include="AtmEventDetectorTests.cs" />
+    <Compile Include="EventHandlerUnitTest\AtmEventDetectorTests.cs" />
     <Compile Include="AtmUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\ObjectDumper.cs" />
     <Compile Include="TransponderUnitTest\TransponderMonitorUnitTests.cs" />
     <Compile Include="TransponderUnitTest\TransponderUnitTests.cs" />
   </ItemGroup>

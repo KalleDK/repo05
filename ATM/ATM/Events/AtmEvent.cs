@@ -11,11 +11,15 @@ namespace ATM.Events
 
     public abstract class AtmEventBase
     {
-        public Levels Level;
-        public string EventType { get; set; }
+        protected AtmEventBase()
+        {
+            Tags = new List<string>();
+        }
+
+        public Levels Level { get; set; }
+        public abstract string EventType { get; }
         public DateTime TimeStamp { get; set; }
         public List<string> Tags { get; set; }
-        public abstract override string ToString();
         
     }
     

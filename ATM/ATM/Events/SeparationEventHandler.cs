@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using ATM.Models;
+using ATM.Time;
 
 namespace ATM.Events
 {
     public class AtmEventSeperation : AtmEventBase
     {
-        public override string ToString()
-        {
-            return "Seperation";
-        }
+        public override string EventType => "Seperation";
     }
 
     class SeparationEventHandler : EventHandlerBase
@@ -23,10 +21,10 @@ namespace ATM.Events
 
         }
 
-        public override void CheckForEvent(List<Plane> activePlanes)
+        public override void CheckForEvent(IEnumerable<Plane> activePlanes)
         {
             //
-            List<ConflictingPlanes> cList = SeparationPlanes(activePlanes);
+            List<ConflictingPlanes> cList = SeparationPlanes((List<Plane>)activePlanes);
 
             foreach (var cPlanes in cList)
             {
@@ -36,7 +34,7 @@ namespace ATM.Events
                     {
                         Level = Levels.Warning,
                         Tags = {cPlanes.Tag1, cPlanes.Tag2},
-                        TimeStamp = DateTime.Now
+                        TimeStamp = TimeProvidor.Now
                     };
                     RaiseEvent(e);
                     _tagsList.Add(cPlanes);

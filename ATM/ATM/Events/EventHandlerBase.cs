@@ -40,7 +40,7 @@ namespace ATM.Events
             SendMessage(EventChange.Removed);
         }
 
-        public abstract void CheckForEvent(List<Plane> activePlanes);
+        public abstract void CheckForEvent(IEnumerable<Plane> activePlanes);
 
         public IEnumerable<AtmEventBase> ActiveAtmEvents
         {

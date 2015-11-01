@@ -68,6 +68,7 @@
     <Compile Include="Models\PlaneObservation.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Time\TimeProvidor.cs" />
     <Compile Include="Transponder\ITransponderMonitor.cs" />
     <Compile Include="Transponder\ITransponderParser.cs" />
     <Compile Include="Transponder\TransponderMonitor.cs" />

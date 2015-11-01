@@ -6,6 +6,31 @@ using System.Threading.Tasks;
 
 namespace ATM.Models
 {
+
+    public abstract class PlaneFactory
+    {
+        public static Plane MakePlane(string tag, int x, int y, int z, DateTime timestamp)
+        {
+            return new Plane
+            {
+                Tag = tag,
+                Positions =
+                {
+                    new Position
+                    {
+                        Coordinate = new Coordinate
+                        {
+                            X = x,
+                            Y = y,
+                            Z = z,
+                        },
+                        Timestamp = timestamp,
+                    }
+                }
+            };
+        }
+    }
+
     public class Plane
     {
         public string Tag { get; set; }
